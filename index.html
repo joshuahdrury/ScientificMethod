@@ -527,4 +527,182 @@
             if(varIndex < varQuestions.length) {
                 setTimeout(() => {
                     fb.innerText = "";
-                    document.getElementById('var-scenario').innerText = `"${varQuestions[varIndex].
+                    document.getElementById('var-scenario').innerText = `"${varQuestions[varIndex].scenario}"`;
+                    document.getElementById('var-target').innerText = `Target: ${varQuestions[varIndex].target}`;
+                }, 1200);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('var-scenario').innerText = "Sorting Blitz Complete!";
+                    document.getElementById('var-target').innerText = `Final Score: ${varScore} / 5`;
+                }, 1200);
+            }
+        }
+
+        // --- GAME 2: DATA GAME ---
+        function checkDataGame() {
+            let val = document.getElementById('data-q').value;
+            let fb = document.getElementById('data-fb');
+            if(val === 'correct') {
+                fb.style.color = "var(--accent-green)";
+                fb.innerText = "Spot on! The data shows a direct positive relationship between ramp height and distance.";
+            } else {
+                fb.style.color = "#ef4444";
+                fb.innerText = "Incorrect. Look closely at how distance increases as ramp height increases.";
+            }
+        }
+
+        // --- PHASE 3: AUDITS ---
+        function checkAudit(id, correctVal, fbId) {
+            let val = document.getElementById(id).value;
+            let fb = document.getElementById(fbId);
+            if(val === correctVal) {
+                fb.style.color = "var(--accent-green)";
+                fb.innerText = "Excellent spot! This flaw directly ruins the scientific validity of the experiment.";
+            } else {
+                fb.style.color = "#ef4444";
+                fb.innerText = "Not quite. Look closely at the variables or scientific language used.";
+            }
+        }
+
+        function checkHypoText() {
+            let text = document.getElementById('audit3').value;
+            let fb = document.getElementById('fb-audit3');
+            if(text.length > 15) {
+                fb.style.color = "var(--accent-green)";
+                fb.innerText = "Great job drafting a scientifically structured hypothesis!";
+            } else {
+                fb.style.color = "#ef4444";
+                fb.innerText = "Please write out a full sentence prediction using scientific reasoning.";
+            }
+        }
+
+        // --- FORM SUBMISSION & PHASE 5 UNLOCK ---
+        function submitProgress(e) {
+            e.preventDefault();
+            const btn = document.getElementById('g8-submit-btn');
+            btn.innerText = 'Sending Exit Ticket...';
+            btn.disabled = true;
+
+            const name = document.getElementById('student-name').value;
+            const topic = document.getElementById('topic-name').value;
+            const takeaway = document.getElementById('takeaway').value;
+
+            fetch('https://formspree.io/f/xknlqovw', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    _replyto: 'jdrury@bialik.ca',
+                    subject: `Grade 8 Science Workshop Exit Ticket - ${name}`,
+                    student_name: name,
+                    personal_experiment_topic: topic,
+                    key_takeaway: takeaway
+                })
+            })
+            .then(response => {
+                document.getElementById('g8-form').style.display = 'none';
+                document.getElementById('g8-success').classList.remove('hidden');
+                document.getElementById('virtual-lab').classList.remove('hidden');
+                document.getElementById('nav-sim-link').classList.remove('hidden');
+            })
+            .catch(error => {
+                console.error('Submission Error:', error);
+                document.getElementById('g8-form').style.display = 'none';
+                document.getElementById('g8-success').classList.remove('hidden');
+                document.getElementById('virtual-lab').classList.remove('hidden');
+                document.getElementById('nav-sim-link').classList.remove('hidden');
+            });
+        }
+
+        function scrollToSim() {
+            document.getElementById('virtual-lab').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- PHASE 5: VIRTUAL SIMULATOR LOGIC ---
+        let trialsRun = [];
+
+        function runSimTrial() {
+            if(trialsRun.length >= 3) {
+                alert("You have already completed 3 trials for this test! Calculate the average below.");
+                return;
+            }
+
+            const surface = document.getElementById('sim-surface').value;
+            const car = document.getElementById('sim-car');
+            const btn = document.getElementById('sim-run-btn');
+            btn.disabled = true;
+
+            // Base distance calculation with slight realistic variation
+            let baseDist = (surface === 'smooth') ? 120 : 50;
+            let variation = Math.floor(Math.random() * 10) - 5;
+            let trialDist = baseDist + variation;
+
+            // Animate Car Movement
+            let pxMove = (surface === 'smooth') ? 280 : 130;
+            car.style.left = pxMove + 'px';
+
+            setTimeout(() => {
+                trialsRun.push(trialDist);
+                updateTable(surface, trialDist);
+
+                // Reset car position
+                setTimeout(() => {
+                    car.style.left = '10px';
+                    btn.disabled = false;
+                }, 800);
+
+                if(trialsRun.length === 3) {
+                    document.getElementById('sim-calc-zone').classList.remove('hidden');
+                }
+            }, 1500);
+        }
+
+        function updateTable(surface, dist) {
+            const body = document.getElementById('sim-table-body');
+            if(trialsRun.length === 1) body.innerHTML = '';
+
+            let row = `<tr>
+                <td>Trial ${trialsRun.length}</td>
+                <td>${surface === 'smooth' ? 'Smooth Tile' : 'Carpet'}</td>
+                <td><strong>${dist} cm</strong></td>
+            </tr>`;
+            body.innerHTML += row;
+        }
+
+        function verifyAverage() {
+            let sum = trialsRun.reduce((a, b) => a + b, 0);
+            let expectedAvg = Math.round(sum / 3);
+            let userVal = parseInt(document.getElementById('user-avg-input').value);
+            let fb = document.getElementById('calc-feedback');
+
+            if(userVal === expectedAvg || Math.abs(userVal - expectedAvg) <= 1) {
+                fb.style.color = "var(--accent-green)";
+                fb.innerText = `Correct! Sum (${sum}) ÷ 3 = ${expectedAvg} cm. Excellent data precision!`;
+            } else {
+                fb.style.color = "#ef4444";
+                fb.innerText = `Incorrect. Sum of trials = ${sum}. Divided by 3 = ${expectedAvg} cm. Check your math!`;
+            }
+        }
+
+        // Scrollspy Navigation Active Highlight
+        window.addEventListener('scroll', () => {
+            let current = '';
+            document.querySelectorAll('section').forEach(sec => {
+                if(pageYOffset >= sec.offsetTop - 120) {
+                    current = sec.getAttribute('id');
+                }
+            });
+            document.querySelectorAll('nav a').forEach(a => {
+                if(a.getAttribute('href').startsWith('#')) {
+                    a.classList.remove('active');
+                    if(a.getAttribute('href') === `#${current}`) {
+                        a.classList.add('active');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
