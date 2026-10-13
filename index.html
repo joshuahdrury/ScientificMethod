@@ -84,6 +84,13 @@
             color: white;
         }
 
+        nav a.bonus-link {
+            background-color: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            border: 1px dashed #f59e0b;
+            margin-top: 1rem;
+        }
+
         /* Main Content */
         main {
             margin-left: 270px;
@@ -141,7 +148,6 @@
             color: #b45309;
         }
 
-        /* Layout Grid & Cards */
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -165,7 +171,7 @@
             border: 1px solid var(--border-color);
         }
 
-        textarea, input[type="text"], select {
+        textarea, input[type="text"], input[type="number"], select {
             width: 100%;
             padding: 0.75rem;
             border: 1px solid var(--border-color);
@@ -221,6 +227,53 @@
             background: #0284c7;
         }
 
+        /* Virtual Lab Simulator Canvas */
+        .sim-track {
+            width: 100%;
+            height: 120px;
+            background: #1e293b;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            margin: 1rem 0;
+            border: 2px solid #334155;
+        }
+
+        .sim-car {
+            width: 50px;
+            height: 25px;
+            background: #38bdf8;
+            border-radius: 4px;
+            position: absolute;
+            left: 10px;
+            bottom: 20px;
+            transition: left 1.5s ease-out;
+        }
+
+        .sim-ramp {
+            width: 0;
+            height: 0;
+            border-bottom: 50px solid #475569;
+            border-right: 120px solid transparent;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.65rem;
+            text-align: center;
+        }
+
+        th { background-color: #f1f5f9; }
+
         .hidden { display: none; }
 
         @media (max-width: 768px) {
@@ -241,29 +294,29 @@
                 <li><a href="#welcome" class="active">1. Today's Plan & Rules</a></li>
                 <li><a href="#arcade-basic">2. Scientific Method Arcade</a></li>
                 <li><a href="#lab-audit">3. Lab Audit: Fix Student Work</a></li>
-                <li><a href="#advanced-challenge">4. Advanced Error Forensics</a></li>
-                <li><a href="#checkin">5. Exit Ticket & Log</a></li>
+                <li><a href="#checkin">4. Exit Ticket & Log</a></li>
+                <li id="nav-sim-link" class="hidden"><a href="#virtual-lab" class="bonus-link">🚀 5. Virtual Sim Lab</a></li>
             </ul>
         </nav>
     </aside>
 
     <main>
-        <!-- Welcome Section -->
+        <!-- PHASE 1: Welcome Section -->
         <section id="welcome">
             <span class="badge badge-warning">⚠️ Important Notice</span>
             <h1>Scientific Method & Error Forensics Hub 🧪</h1>
-            <p>Welcome to today's Science Mastery Hub! Regardless of where you are in your individual testing, today is an interactive web-based lesson designed to sharpen your skills in variable control, data analysis, and error detection.</p>
+            <p>Welcome to today's Science Mastery Hub! Today is an interactive web-based workshop designed to sharpen your skills in variable control, data analysis, and error detection.</p>
 
             <div class="info-card" style="border-left-color: #ef4444; background: #fef2f2;">
                 <h3 style="color: #991b1b;">🛑 Lab Safety Notice</h3>
-                <p style="color: #7f1d1d; margin-bottom: 0;"><strong>NO physical experimentation, chemicals, water, or equipment testing may take place today while a supply teacher is present.</strong> Work through the interactive modules below for the duration of the period.</p>
+                <p style="color: #7f1d1d; margin-bottom: 0;"><strong>NO physical experimentation, chemicals, water, or equipment testing may take place today while a supply teacher is present.</strong> Complete the interactive modules below for the duration of the period.</p>
             </div>
         </section>
 
         <!-- PHASE 2: Scientific Method Arcade -->
         <section id="arcade-basic">
-            <h2>Phase 1: Scientific Method Arcade 🎮</h2>
-            <p>Work through these two interactive skill-checks to test your core understanding of experimental design.</p>
+            <h2>Phase 2: Scientific Method Arcade 🎮</h2>
+            <p>Work through these two interactive skill-checks to test your understanding of experimental variables and data interpretation.</p>
 
             <!-- Game 1: Variable Sorter -->
             <div class="game-card">
@@ -308,8 +361,8 @@
 
         <!-- PHASE 3: Lab Audit & Peer Review -->
         <section id="lab-audit">
-            <h2>Phase 2: Lab Audit - Fix the Student's Work 🔍</h2>
-            <p>You are now a peer reviewer! Below are 3 real-world mock lab reports written by Grade 8 students. Read each snippet and identify what flaw needs to be corrected.</p>
+            <h2>Phase 3: Lab Audit - Fix the Student's Work 🔍</h2>
+            <p>You are acting as a peer reviewer! Below are 3 real-world mock lab report snippets written by Grade 8 students. Identify what flaw needs to be corrected.</p>
 
             <!-- Case 1 -->
             <div class="interactive-box">
@@ -321,7 +374,7 @@
                 <select id="audit1">
                     <option value="">-- Select the Flaw --</option>
                     <option value="wrong">They used centimeters instead of meters.</option>
-                    <option value="correct">Uncontrolled variables: They changed both the car type (plastic vs. metal) and pushed it, violating a fair test.</option>
+                    <option value="correct">Uncontrolled variables: They changed both car type (plastic vs metal) and pushed it, violating a fair test.</option>
                     <option value="wrong2">You cannot measure distance for cars on ramps.</option>
                 </select>
                 <button onclick="checkAudit('audit1', 'correct', 'fb-audit1')">Audit Report 1</button>
@@ -338,7 +391,7 @@
                 <select id="audit2">
                     <option value="">-- Select the Flaw --</option>
                     <option value="wrong">Conclusions must be at least 5 pages long.</option>
-                    <option value="correct">Lack of scientific evidence & vague language: It fails to reference numerical data (e.g., times/temperatures) or kinetic theory.</option>
+                    <option value="correct">Lack of scientific evidence & vague language: It fails to reference numerical data or kinetic theory.</option>
                     <option value="wrong2">Salt does not dissolve in warm water.</option>
                 </select>
                 <button onclick="checkAudit('audit2', 'correct', 'fb-audit2')">Audit Report 2</button>
@@ -358,42 +411,10 @@
             </div>
         </section>
 
-        <!-- PHASE 4: Advanced Science Challenge -->
-        <section id="advanced-challenge">
-            <h2>Phase 3: Advanced Experimental Error Forensics 🧠</h2>
-            <p>Level up! Test your understanding of high-level experimental design and error classification.</p>
-
-            <div class="game-card">
-                <h3>Error Classifier: Human Error vs. Systematic Error</h3>
-                <p style="color: #cbd5e1; margin-bottom: 1rem;">A student's stopwatch was broken and ran 2 seconds slow for EVERY single trial conducted during the lab.</p>
-                
-                <p><strong>What type of experimental error is this?</strong></p>
-                <div class="var-options">
-                    <button class="var-btn" onclick="checkError('wrong')">Human Carelessness Error</button>
-                    <button class="var-btn" onclick="checkError('correct')">Systematic Equipment Error</button>
-                    <button class="var-btn" onclick="checkError('wrong')">Random Natural Error</button>
-                </div>
-                <p id="error-fb" style="margin-top: 1rem; font-weight: bold;"></p>
-            </div>
-
-            <div class="interactive-box">
-                <h3>The 3-Trial Rule Challenge</h3>
-                <p><strong>Question: Why do scientists insist on performing at least 3 trials for every condition in an experiment?</strong></p>
-                <select id="trial-q">
-                    <option value="">-- Choose Scientific Explanation --</option>
-                    <option value="wrong">To make the lab report look longer.</option>
-                    <option value="correct">To calculate an average, minimize the impact of random outliers, and ensure reliability.</option>
-                    <option value="wrong2">Because equipment only works on the third try.</option>
-                </select>
-                <button onclick="checkTrialQ()">Check Explanation</button>
-                <p id="trial-fb" style="margin-top: 0.75rem; font-weight: bold;"></p>
-            </div>
-        </section>
-
-        <!-- Exit Ticket -->
+        <!-- PHASE 4: Exit Ticket -->
         <section id="checkin">
             <h2>Phase 4: Class Exit Ticket & Log 📩</h2>
-            <p>Submit your completed workshop summary before the end of the period. This sends your results directly to Mr. Drury (`jdrury@bialik.ca`).</p>
+            <p>Submit your completed workshop summary. This sends your results directly to Mr. Drury (`jdrury@bialik.ca`) and unlocks Phase 5 (Virtual Sim Lab)!</p>
 
             <form id="g8-form" onsubmit="submitProgress(event)">
                 <label for="student-name">Your First & Last Name:</label>
@@ -408,8 +429,68 @@
                 <button type="submit" id="g8-submit-btn">Submit Exit Ticket to Mr. Drury</button>
             </form>
 
-            <div id="g8-success" class="hidden interactive-box" style="background-color: #dcfce7; border-color: #86efac; color: #166534; margin-top: 1rem;">
-                🎉 <strong>Exit Ticket Submitted!</strong> Your responses have been sent to Mr. Drury (`jdrury@bialik.ca`). Great job today!
+            <div id="g8-success" class="hidden interactive-box" style="background-color: #dcfce7; border-color: #86efac; color: #166534; margin-top: 1rem; text-align: center;">
+                <p style="font-size: 1.1rem; margin-bottom: 0.75rem;">🎉 <strong>Exit Ticket Submitted!</strong> Your responses have been sent to Mr. Drury (`jdrury@bialik.ca`).</p>
+                <hr style="border: 0; border-top: 1px solid #86efac; margin: 1rem 0;">
+                <p><strong>Phase 5 Unlocked!</strong> Click the button below to conduct virtual experiments and calculate real-time trial data!</p>
+                <button onclick="scrollToSim()" style="background: #0284c7; margin-top: 0.5rem;">Launch Virtual Sim Lab 🚀</button>
+            </div>
+        </section>
+
+        <!-- PHASE 5: Virtual Experiment Lab (Unlocked After Submission) -->
+        <section id="virtual-lab" class="hidden" style="border: 2px solid #0284c7;">
+            <span class="badge" style="background: #fef3c7; color: #b45309;">🚀 Phase 5: Bonus Virtual Lab</span>
+            <h2>Hypothetical Physics Lab: Friction & Distance 🏎️</h2>
+            <p>Run 3 virtual trials by adjusting variables below. Record the distance outputted for each trial, calculate the mathematical average, and input your answer to test your data precision!</p>
+
+            <div class="interactive-box">
+                <div class="grid-2">
+                    <div>
+                        <label for="sim-surface"><strong>Independent Variable: Surface Type</strong></label>
+                        <select id="sim-surface">
+                            <option value="smooth">Smooth Tile (Low Friction)</option>
+                            <option value="carpet">Carpet (High Friction)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="sim-mass"><strong>Controlled Variable: Car Mass</strong></label>
+                        <select id="sim-mass">
+                            <option value="light">Standard Plastic Car (50g)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Sim Animation Track -->
+                <div class="sim-track">
+                    <div class="sim-ramp"></div>
+                    <div class="sim-car" id="sim-car"></div>
+                </div>
+
+                <button onclick="runSimTrial()" id="sim-run-btn">Run Trial</button>
+
+                <!-- Data Collection Table -->
+                <h3 style="margin-top: 1.5rem;">Experimental Data Log</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Trial #</th>
+                            <th>Surface Type</th>
+                            <th>Distance Traveled (cm)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sim-table-body">
+                        <tr><td colspan="3" style="color: #94a3b8;">No trials run yet. Click "Run Trial" above!</td></tr>
+                    </tbody>
+                </table>
+
+                <!-- Average Calculation Verification -->
+                <div id="sim-calc-zone" class="hidden" style="margin-top: 1.5rem; background: white; padding: 1rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <h3>Calculate the Average Distance:</h3>
+                    <p>Add up your 3 trial distances and divide by 3. What is the calculated average distance (cm)?</p>
+                    <input type="number" id="user-avg-input" placeholder="Enter calculated average in cm (e.g. 120)">
+                    <button onclick="verifyAverage()">Verify Calculation</button>
+                    <p id="calc-feedback" style="margin-top: 0.75rem; font-weight: bold;"></p>
+                </div>
             </div>
         </section>
     </main>
@@ -446,130 +527,4 @@
             if(varIndex < varQuestions.length) {
                 setTimeout(() => {
                     fb.innerText = "";
-                    document.getElementById('var-scenario').innerText = `"${varQuestions[varIndex].scenario}"`;
-                    document.getElementById('var-target').innerText = `Target: ${varQuestions[varIndex].target}`;
-                }, 1200);
-            } else {
-                setTimeout(() => {
-                    document.getElementById('var-scenario').innerText = "Sorting Blitz Complete!";
-                    document.getElementById('var-target').innerText = `Final Score: ${varScore} / 5`;
-                }, 1200);
-            }
-        }
-
-        // --- GAME 2: DATA GAME ---
-        function checkDataGame() {
-            let val = document.getElementById('data-q').value;
-            let fb = document.getElementById('data-fb');
-            if(val === 'correct') {
-                fb.style.color = "var(--accent-green)";
-                fb.innerText = "Spot on! The data shows a direct positive relationship between ramp height and distance.";
-            } else {
-                fb.style.color = "#ef4444";
-                fb.innerText = "Incorrect. Look closely at how distance increases as ramp height increases.";
-            }
-        }
-
-        // --- PHASE 3: AUDITS ---
-        function checkAudit(id, correctVal, fbId) {
-            let val = document.getElementById(id).value;
-            let fb = document.getElementById(fbId);
-            if(val === correctVal) {
-                fb.style.color = "var(--accent-green)";
-                fb.innerText = "Excellent spot! This flaw directly ruins the scientific validity of the experiment.";
-            } else {
-                fb.style.color = "#ef4444";
-                fb.innerText = "Not quite. Look closely at the variables or scientific language used.";
-            }
-        }
-
-        function checkHypoText() {
-            let text = document.getElementById('audit3').value;
-            let fb = document.getElementById('fb-audit3');
-            if(text.length > 15) {
-                fb.style.color = "var(--accent-green)";
-                fb.innerText = "Great job drafting a scientifically structured hypothesis!";
-            } else {
-                fb.style.color = "#ef4444";
-                fb.innerText = "Please write out a full sentence prediction using scientific reasoning.";
-            }
-        }
-
-        // --- PHASE 4: ADVANCED ---
-        function checkError(type) {
-            let fb = document.getElementById('error-fb');
-            if(type === 'correct') {
-                fb.style.color = "#4ade80";
-                fb.innerText = "Correct! Equipment that consistently reads wrong introduces a Systematic Error!";
-            } else {
-                fb.style.color = "#f87171";
-                fb.innerText = "Try again! Since it affects every trial equally, it is a Systematic Equipment Error.";
-            }
-        }
-
-        function checkTrialQ() {
-            let val = document.getElementById('trial-q').value;
-            let fb = document.getElementById('trial-fb');
-            if(val === 'correct') {
-                fb.style.color = "var(--accent-green)";
-                fb.innerText = "Correct! Averages minimize random error and prove data reliability.";
-            } else {
-                fb.style.color = "#ef4444";
-                fb.innerText = "Incorrect. Think about why repeating tests helps scientific accuracy.";
-            }
-        }
-
-        // --- FORM SUBMISSION ---
-        function submitProgress(e) {
-            e.preventDefault();
-            const btn = document.getElementById('g8-submit-btn');
-            btn.innerText = 'Sending Exit Ticket...';
-            btn.disabled = true;
-
-            const name = document.getElementById('student-name').value;
-            const topic = document.getElementById('topic-name').value;
-            const takeaway = document.getElementById('takeaway').value;
-
-            fetch('https://formspree.io/f/xknlqovw', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    _replyto: 'jdrury@bialik.ca',
-                    subject: `Grade 8 Science Workshop Exit Ticket - ${name}`,
-                    student_name: name,
-                    personal_experiment_topic: topic,
-                    key_takeaway: takeaway
-                })
-            })
-            .then(response => {
-                document.getElementById('g8-form').style.display = 'none';
-                document.getElementById('g8-success').classList.remove('hidden');
-            })
-            .catch(error => {
-                console.error('Submission Error:', error);
-                document.getElementById('g8-form').style.display = 'none';
-                document.getElementById('g8-success').classList.remove('hidden');
-            });
-        }
-
-        // Scrollspy
-        window.addEventListener('scroll', () => {
-            let current = '';
-            document.querySelectorAll('section').forEach(sec => {
-                if(pageYOffset >= sec.offsetTop - 120) {
-                    current = sec.getAttribute('id');
-                }
-            });
-            document.querySelectorAll('nav a').forEach(a => {
-                a.classList.remove('active');
-                if(a.getAttribute('href') === `#${current}`) {
-                    a.classList.add('active');
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+                    document.getElementById('var-scenario').innerText = `"${varQuestions[varIndex].
