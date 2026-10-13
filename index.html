@@ -92,7 +92,7 @@
             margin-top: 1rem;
         }
 
-        /* Main Content - Expanded Container Width */
+        /* Main Content */
         main {
             margin-left: 270px;
             width: calc(100% - 270px);
@@ -136,7 +136,7 @@
 
         .badge {
             display: inline-block;
-            background-color: #e0f2fe;
+            background-color: #e0e7ff;
             color: var(--primary-color);
             padding: 0.25rem 0.75rem;
             border-radius: 9999px;
@@ -232,7 +232,7 @@
             background: #0284c7;
         }
 
-        /* Virtual Lab Simulator Canvas */
+        /* Virtual Track / Canvas Elements */
         .sim-track {
             width: 100%;
             height: 120px;
@@ -255,14 +255,36 @@
             transition: left 1.5s ease-out;
         }
 
-        .sim-ramp {
-            width: 0;
-            height: 0;
-            border-bottom: 50px solid #475569;
-            border-right: 120px solid transparent;
+        .sim-beaker {
+            width: 120px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 3px solid #64748b;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            margin: 1rem auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sim-liquid {
+            width: 100%;
+            height: 70%;
+            background: #38bdf8;
             position: absolute;
-            left: 0;
             bottom: 0;
+            transition: background 0.5s;
+        }
+
+        .sim-solute {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            transition: opacity 1.5s, transform 1.5s;
         }
 
         table {
@@ -300,7 +322,9 @@
                 <li><a href="#arcade-basic">2. Scientific Method Arcade</a></li>
                 <li><a href="#lab-audit">3. Lab Audit: Fix Student Work</a></li>
                 <li><a href="#checkin">4. Exit Ticket &amp; Log</a></li>
-                <li id="nav-sim-link" class="hidden"><a href="#virtual-lab" class="bonus-link">🚀 5. Virtual Sim Lab</a></li>
+                <li id="nav-sim1" class="hidden"><a href="#virtual-lab-1" class="bonus-link">🏎️ 5. Physics Friction Lab</a></li>
+                <li id="nav-sim2" class="hidden"><a href="#virtual-lab-2" class="bonus-link">🧪 6. Solution Chemistry Lab</a></li>
+                <li id="nav-sim3" class="hidden"><a href="#virtual-lab-3" class="bonus-link">🧊 7. Thermal Energy Lab</a></li>
             </ul>
         </nav>
     </aside>
@@ -369,7 +393,6 @@
             <h2>Phase 3: Lab Audit - Fix the Student's Work 🔍</h2>
             <p>You are acting as a peer reviewer! Below are 3 real-world mock lab report snippets written by Grade 8 students. Identify what flaw needs to be corrected.</p>
 
-            <!-- Case 1 -->
             <div class="interactive-box">
                 <h3>Case Study 1: The Ramp Height Experiment</h3>
                 <div class="info-card" style="background: white; border-left-color: var(--accent-amber);">
@@ -386,7 +409,6 @@
                 <p id="fb-audit1" style="margin-top: 0.5rem; font-weight: bold;"></p>
             </div>
 
-            <!-- Case 2 -->
             <div class="interactive-box">
                 <h3>Case Study 2: Salt Dissolving Temperature Study</h3>
                 <div class="info-card" style="background: white; border-left-color: var(--accent-purple);">
@@ -403,7 +425,6 @@
                 <p id="fb-audit2" style="margin-top: 0.5rem; font-weight: bold;"></p>
             </div>
 
-            <!-- Case 3 -->
             <div class="interactive-box">
                 <h3>Case Study 3: The Ice Melting Study</h3>
                 <div class="info-card" style="background: white; border-left-color: var(--accent-green);">
@@ -419,7 +440,7 @@
         <!-- PHASE 4: Exit Ticket -->
         <section id="checkin">
             <h2>Phase 4: Class Exit Ticket &amp; Log 📩</h2>
-            <p>Submit your completed workshop summary. This sends your results directly to Mr. Drury (jdrury@bialik.ca) and unlocks Phase 5 (Virtual Sim Lab)!</p>
+            <p>Submit your completed workshop summary. This sends your results directly to Mr. Drury (jdrury@bialik.ca) and unlocks the Virtual Sim Labs!</p>
 
             <form id="g8-form" onsubmit="submitProgress(event)">
                 <label for="student-name">Your First &amp; Last Name:</label>
@@ -437,64 +458,220 @@
             <div id="g8-success" class="hidden interactive-box" style="background-color: #dcfce7; border-color: #86efac; color: #166534; margin-top: 1rem; text-align: center;">
                 <p style="font-size: 1.1rem; margin-bottom: 0.75rem;">🎉 <strong>Exit Ticket Submitted!</strong> Your responses have been sent to Mr. Drury (jdrury@bialik.ca).</p>
                 <hr style="border: 0; border-top: 1px solid #86efac; margin: 1rem 0;">
-                <p><strong>Phase 5 Unlocked!</strong> Click the button below to conduct virtual experiments and calculate real-time trial data!</p>
-                <button onclick="scrollToSim()" style="background: #0284c7; margin-top: 0.5rem;">Launch Virtual Sim Lab 🚀</button>
+                <p><strong>Virtual Sim Labs Unlocked!</strong> You can now run virtual experiments across 3 different topics below.</p>
+                <button onclick="scrollToSim(1)" style="background: #0284c7; margin-top: 0.5rem;">Launch Virtual Sim Labs 🚀</button>
             </div>
         </section>
 
-        <!-- PHASE 5: Virtual Experiment Lab (Unlocked After Submission) -->
-        <section id="virtual-lab" class="hidden" style="border: 2px solid #0284c7;">
-            <span class="badge" style="background: #fef3c7; color: #b45309;">🚀 Phase 5: Bonus Virtual Lab</span>
+        <!-- VIRTUAL LAB 1: Friction & Ramp Distance -->
+        <section id="virtual-lab-1" class="hidden" style="border: 2px solid #0284c7;">
+            <span class="badge" style="background: #fef3c7; color: #b45309;">🚀 Virtual Lab 1: Physics</span>
             <h2>Hypothetical Physics Lab: Friction &amp; Distance 🏎️</h2>
-            <p>Run 3 virtual trials by adjusting variables below. Record the distance outputted for each trial, calculate the mathematical average, and input your answer to test your data precision!</p>
+            <p>Conduct <strong>3 trials for Smooth Tile</strong> and <strong>3 trials for Carpet</strong>. Calculate the average distance for both conditions, then write your conclusion!</p>
 
             <div class="interactive-box">
                 <div class="grid-2">
                     <div>
-                        <label for="sim-surface"><strong>Independent Variable: Surface Type</strong></label>
-                        <select id="sim-surface">
+                        <label for="lab1-surface"><strong>Select Independent Variable: Surface Type</strong></label>
+                        <select id="lab1-surface">
                             <option value="smooth">Smooth Tile (Low Friction)</option>
                             <option value="carpet">Carpet (High Friction)</option>
                         </select>
                     </div>
                     <div>
-                        <label for="sim-mass"><strong>Controlled Variable: Car Mass</strong></label>
-                        <select id="sim-mass">
-                            <option value="light">Standard Plastic Car (50g)</option>
-                        </select>
+                        <label><strong>Controlled Variables</strong></label>
+                        <input type="text" value="Car Mass (50g) & Ramp Angle (30°)" disabled style="background: #e2e8f0;">
                     </div>
                 </div>
 
-                <!-- Sim Animation Track -->
                 <div class="sim-track">
                     <div class="sim-ramp"></div>
-                    <div class="sim-car" id="sim-car"></div>
+                    <div class="sim-car" id="lab1-car"></div>
                 </div>
 
-                <button onclick="runSimTrial()" id="sim-run-btn">Run Trial</button>
+                <button onclick="runLab1Trial()" id="lab1-run-btn">Run Trial</button>
 
-                <!-- Data Collection Table -->
-                <h3 style="margin-top: 1.5rem;">Experimental Data Log</h3>
+                <h3>Experimental Data Log (3 Trials Per Condition)</h3>
                 <table>
                     <thead>
                         <tr>
-                            <th>Trial #</th>
-                            <th>Surface Type</th>
-                            <th>Distance Traveled (cm)</th>
+                            <th>Condition</th>
+                            <th>Trial 1 (cm)</th>
+                            <th>Trial 2 (cm)</th>
+                            <th>Trial 3 (cm)</th>
+                            <th>Calculated Average (cm)</th>
                         </tr>
                     </thead>
-                    <tbody id="sim-table-body">
-                        <tr><td colspan="3" style="color: #94a3b8;">No trials run yet. Click "Run Trial" above!</td></tr>
+                    <tbody>
+                        <tr>
+                            <td><strong>Smooth Tile</strong></td>
+                            <td id="l1-s-t1">--</td>
+                            <td id="l1-s-t2">--</td>
+                            <td id="l1-s-t3">--</td>
+                            <td><input type="number" id="l1-s-avg" placeholder="Avg" style="margin:0; padding:0.3rem; width:80px;"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Carpet Surface</strong></td>
+                            <td id="l1-c-t1">--</td>
+                            <td id="l1-c-t2">--</td>
+                            <td id="l1-c-t3">--</td>
+                            <td><input type="number" id="l1-c-avg" placeholder="Avg" style="margin:0; padding:0.3rem; width:80px;"></td>
+                        </tr>
                     </tbody>
                 </table>
+                <button onclick="verifyLab1Averages()">Check Averages</button>
+                <p id="lab1-avg-fb" style="margin-top: 0.5rem; font-weight: bold;"></p>
 
-                <!-- Average Calculation Verification -->
-                <div id="sim-calc-zone" class="hidden" style="margin-top: 1.5rem; background: white; padding: 1rem; border-radius: 6px; border: 1px solid var(--border-color);">
-                    <h3>Calculate the Average Distance:</h3>
-                    <p>Add up your 3 trial distances and divide by 3. What is the calculated average distance (cm)?</p>
-                    <input type="number" id="user-avg-input" placeholder="Enter calculated average in cm (e.g. 120)">
-                    <button onclick="verifyAverage()">Verify Calculation</button>
-                    <p id="calc-feedback" style="margin-top: 0.75rem; font-weight: bold;"></p>
+                <div id="lab1-conc-zone" class="hidden" style="margin-top: 1.5rem; background: white; padding: 1rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <h3>Lab 1 Written Conclusion:</h3>
+                    <label for="l1-conc-text"><strong>Based on your data, state how surface friction affects car travel distance using specific numbers from your averages:</strong></label>
+                    <textarea id="l1-conc-text" rows="3" placeholder="My data shows that the smooth surface allowed the car to travel an average of... compared to carpet which..."></textarea>
+                    <button onclick="submitLabConclusion('Lab 1 (Friction)', 'l1-conc-text', 'l1-conc-fb')">Lock In Conclusion</button>
+                    <p id="l1-conc-fb" style="margin-top: 0.5rem; font-weight: bold;"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIRTUAL LAB 2: Water Temperature & Dissolving Rate -->
+        <section id="virtual-lab-2" class="hidden" style="border: 2px solid #8b5cf6;">
+            <span class="badge" style="background: #f3e8ff; color: #6b21a8;">🚀 Virtual Lab 2: Solution Chemistry</span>
+            <h2>Chemistry Lab: Temperature vs. Dissolving Rate 🧪</h2>
+            <p>Test how water temperature affects salt dissolving speed. Conduct <strong>3 trials in Hot Water (60°C)</strong> and <strong>3 trials in Cold Water (10°C)</strong>.</p>
+
+            <div class="interactive-box">
+                <div class="grid-2">
+                    <div>
+                        <label for="lab2-temp"><strong>Select Independent Variable: Water Temp</strong></label>
+                        <select id="lab2-temp">
+                            <option value="hot">Hot Water (60°C)</option>
+                            <option value="cold">Cold Water (10°C)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label><strong>Controlled Variables</strong></label>
+                        <input type="text" value="Salt Mass (5g) & Volume (150 mL)" disabled style="background: #e2e8f0;">
+                    </div>
+                </div>
+
+                <div class="game-card" style="background: #1e293b; padding: 1rem;">
+                    <div class="sim-beaker">
+                        <div class="sim-liquid" id="lab2-liquid"></div>
+                        <div class="sim-solute" id="lab2-salt"></div>
+                    </div>
+                    <p id="lab2-timer-display">Dissolving Time: -- seconds</p>
+                </div>
+
+                <button onclick="runLab2Trial()" id="lab2-run-btn">Run Trial</button>
+
+                <h3>Experimental Data Log (3 Trials Per Condition)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Condition</th>
+                            <th>Trial 1 (s)</th>
+                            <th>Trial 2 (s)</th>
+                            <th>Trial 3 (s)</th>
+                            <th>Calculated Average (s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Hot Water (60°C)</strong></td>
+                            <td id="l2-h-t1">--</td>
+                            <td id="l2-h-t2">--</td>
+                            <td id="l2-h-t3">--</td>
+                            <td><input type="number" id="l2-h-avg" placeholder="Avg" style="margin:0; padding:0.3rem; width:80px;"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cold Water (10°C)</strong></td>
+                            <td id="l2-c-t1">--</td>
+                            <td id="l2-c-t2">--</td>
+                            <td id="l2-c-t3">--</td>
+                            <td><input type="number" id="l2-c-avg" placeholder="Avg" style="margin:0; padding:0.3rem; width:80px;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button onclick="verifyLab2Averages()">Check Averages</button>
+                <p id="lab2-avg-fb" style="margin-top: 0.5rem; font-weight: bold;"></p>
+
+                <div id="lab2-conc-zone" class="hidden" style="margin-top: 1.5rem; background: white; padding: 1rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <h3>Lab 2 Written Conclusion (CER):</h3>
+                    <label for="l2-conc-text"><strong>Explain how particle kinetic energy and temperature impact the rate of dissolving using your data:</strong></label>
+                    <textarea id="l2-conc-text" rows="3" placeholder="In hot water, salt dissolved in an average of... seconds because higher thermal energy causes water particles to move faster..."></textarea>
+                    <button onclick="submitLabConclusion('Lab 2 (Chemistry)', 'l2-conc-text', 'l2-conc-fb')">Lock In Conclusion</button>
+                    <p id="l2-conc-fb" style="margin-top: 0.5rem; font-weight: bold;"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIRTUAL LAB 3: Liquid Type & Ice Melting Speed -->
+        <section id="virtual-lab-3" class="hidden" style="border: 2px solid #10b981;">
+            <span class="badge" style="background: #dcfce7; color: #15803d;">🚀 Virtual Lab 3: Thermal Energy</span>
+            <h2>Thermal Lab: Liquid Type vs. Ice Cube Melt Time 🧊</h2>
+            <p>Test how adding salt to liquid affects ice melting time. Conduct <strong>3 trials in Plain Water</strong> and <strong>3 trials in Saltwater</strong>.</p>
+
+            <div class="interactive-box">
+                <div class="grid-2">
+                    <div>
+                        <label for="lab3-liquid-type"><strong>Select Independent Variable: Liquid Type</strong></label>
+                        <select id="lab3-liquid-type">
+                            <option value="water">Plain Water</option>
+                            <option value="saltwater">Saltwater Solution</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label><strong>Controlled Variables</strong></label>
+                        <input type="text" value="Ice Cube Volume (15 mL) & Room Temp (22°C)" disabled style="background: #e2e8f0;">
+                    </div>
+                </div>
+
+                <div class="game-card" style="background: #1e293b; padding: 1rem;">
+                    <div class="sim-beaker">
+                        <div class="sim-liquid" style="background: #bae6fd;"></div>
+                        <div class="sim-solute" id="lab3-ice" style="border-radius: 2px; width: 30px; height: 30px; left: 45px; top: 30px;"></div>
+                    </div>
+                    <p id="lab3-timer-display">Melt Time: -- seconds</p>
+                </div>
+
+                <button onclick="runLab3Trial()" id="lab3-run-btn">Run Trial</button>
+
+                <h3>Experimental Data Log (3 Trials Per Condition)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Condition</th>
+                            <th>Trial 1 (s)</th>
+                            <th>Trial 2 (s)</th>
+                            <th>Trial 3 (s)</th>
+                            <th>Calculated Average (s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Plain Water</strong></td>
+                            <td id="l3-w-t1">--</td>
+                            <td id="l3-w-t2">--</td>
+                            <td id="l3-w-t3">--</td>
+                            <td><input type="number" id="l3-w-avg" placeholder="Avg" style="margin:0; padding:0.3rem; width:80px;"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Saltwater Solution</strong></td>
+                            <td id="l3-s-t1">--</td>
+                            <td id="l3-s-t2">--</td>
+                            <td id="l3-s-t3">--</td>
+                            <td><input type="number" id="l3-s-avg" placeholder="Avg" style="margin:0; padding:0.3rem; width:80px;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button onclick="verifyLab3Averages()">Check Averages</button>
+                <p id="lab3-avg-fb" style="margin-top: 0.5rem; font-weight: bold;"></p>
+
+                <div id="lab3-conc-zone" class="hidden" style="margin-top: 1.5rem; background: white; padding: 1rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <h3>Lab 3 Written Conclusion:</h3>
+                    <label for="l3-conc-text"><strong>State which liquid melted the ice cube faster and explain why using your recorded averages:</strong></label>
+                    <textarea id="l3-conc-text" rows="3" placeholder="In plain water, the ice cube melted in an average of... seconds while in saltwater it took..."></textarea>
+                    <button onclick="submitLabConclusion('Lab 3 (Thermal)', 'l3-conc-text', 'l3-conc-fb')">Lock In Conclusion</button>
+                    <p id="l3-conc-fb" style="margin-top: 0.5rem; font-weight: bold;"></p>
                 </div>
             </div>
         </section>
@@ -581,7 +758,7 @@
             }
         }
 
-        // --- FORM SUBMISSION & PHASE 5 UNLOCK ---
+        // --- FORM SUBMISSION & UNLOCK ALL LABS ---
         function submitProgress(e) {
             e.preventDefault();
             const btn = document.getElementById('g8-submit-btn');
@@ -606,86 +783,237 @@
                     key_takeaway: takeaway
                 })
             })
-            .then(function(response) {
-                document.getElementById('g8-form').style.display = 'none';
-                document.getElementById('g8-success').classList.remove('hidden');
-                document.getElementById('virtual-lab').classList.remove('hidden');
-                document.getElementById('nav-sim-link').classList.remove('hidden');
+            .then(function() {
+                unlockLabs();
             })
-            .catch(function(error) {
-                console.error('Submission Error:', error);
-                document.getElementById('g8-form').style.display = 'none';
-                document.getElementById('g8-success').classList.remove('hidden');
-                document.getElementById('virtual-lab').classList.remove('hidden');
-                document.getElementById('nav-sim-link').classList.remove('hidden');
+            .catch(function() {
+                unlockLabs();
             });
         }
 
-        function scrollToSim() {
-            document.getElementById('virtual-lab').scrollIntoView({ behavior: 'smooth' });
+        function unlockLabs() {
+            document.getElementById('g8-form').style.display = 'none';
+            document.getElementById('g8-success').classList.remove('hidden');
+            document.getElementById('virtual-lab-1').classList.remove('hidden');
+            document.getElementById('virtual-lab-2').classList.remove('hidden');
+            document.getElementById('virtual-lab-3').classList.remove('hidden');
+            document.getElementById('nav-sim1').classList.remove('hidden');
+            document.getElementById('nav-sim2').classList.remove('hidden');
+            document.getElementById('nav-sim3').classList.remove('hidden');
         }
 
-        // --- PHASE 5: VIRTUAL SIMULATOR LOGIC ---
-        let trialsRun = [];
+        function scrollToSim(num) {
+            document.getElementById('virtual-lab-' + num).scrollIntoView({ behavior: 'smooth' });
+        }
 
-        function runSimTrial() {
-            if(trialsRun.length >= 3) {
-                alert("You have already completed 3 trials for this test! Calculate the average below.");
+        // --- VIRTUAL LAB 1 LOGIC (PHYSICS) ---
+        let lab1Data = { smooth: [], carpet: [] };
+
+        function runLab1Trial() {
+            let surface = document.getElementById('lab1-surface').value;
+            let trials = lab1Data[surface];
+
+            if(trials.length >= 3) {
+                alert("You have already completed 3 trials for " + surface + "! Switch surface type to test the other condition.");
                 return;
             }
 
-            const surface = document.getElementById('sim-surface').value;
-            const car = document.getElementById('sim-car');
-            const btn = document.getElementById('sim-run-btn');
+            let btn = document.getElementById('lab1-run-btn');
+            let car = document.getElementById('lab1-car');
             btn.disabled = true;
 
             let baseDist = (surface === 'smooth') ? 120 : 50;
-            let variation = Math.floor(Math.random() * 10) - 5;
-            let trialDist = baseDist + variation;
+            let val = baseDist + Math.floor(Math.random() * 8) - 4;
+            trials.push(val);
 
             let pxMove = (surface === 'smooth') ? 280 : 130;
             car.style.left = pxMove + 'px';
 
             setTimeout(function() {
-                trialsRun.push(trialDist);
-                updateTable(surface, trialDist);
+                let prefix = (surface === 'smooth') ? 'l1-s-t' : 'l1-c-t';
+                document.getElementById(prefix + trials.length).innerText = val + " cm";
 
                 setTimeout(function() {
                     car.style.left = '10px';
                     btn.disabled = false;
-                }, 800);
+                }, 600);
+            }, 1200);
+        }
 
-                if(trialsRun.length === 3) {
-                    document.getElementById('sim-calc-zone').classList.remove('hidden');
-                }
+        function verifyLab1Averages() {
+            let sAvg = parseInt(document.getElementById('l1-s-avg').value);
+            let cAvg = parseInt(document.getElementById('l1-c-avg').value);
+            let fb = document.getElementById('lab1-avg-fb');
+
+            if(lab1Data.smooth.length < 3 || lab1Data.carpet.length < 3) {
+                fb.style.color = "#ef4444";
+                fb.innerText = "Please complete all 3 trials for BOTH Smooth Tile and Carpet before checking!";
+                return;
+            }
+
+            let realS = Math.round(lab1Data.smooth.reduce((a,b)=>a+b, 0) / 3);
+            let realC = Math.round(lab1Data.carpet.reduce((a,b)=>a+b, 0) / 3);
+
+            if(Math.abs(sAvg - realS) <= 1 && Math.abs(cAvg - realC) <= 1) {
+                fb.style.color = "var(--accent-green)";
+                fb.innerText = "Averages verified! Smooth Avg = " + realS + " cm, Carpet Avg = " + realC + " cm. Write your conclusion below.";
+                document.getElementById('lab1-conc-zone').classList.remove('hidden');
+            } else {
+                fb.style.color = "#ef4444";
+                fb.innerText = "Check your calculations! Smooth actual avg = " + realS + " cm, Carpet actual avg = " + realC + " cm.";
+            }
+        }
+
+        // --- VIRTUAL LAB 2 LOGIC (CHEMISTRY) ---
+        let lab2Data = { hot: [], cold: [] };
+
+        function runLab2Trial() {
+            let temp = document.getElementById('lab2-temp').value;
+            let trials = lab2Data[temp];
+
+            if(trials.length >= 3) {
+                alert("You have completed 3 trials for " + temp + " water! Switch condition to test the other temperature.");
+                return;
+            }
+
+            let btn = document.getElementById('lab2-run-btn');
+            let liquid = document.getElementById('lab2-liquid');
+            let salt = document.getElementById('lab2-salt');
+            btn.disabled = true;
+
+            liquid.style.background = (temp === 'hot') ? '#ef4444' : '#38bdf8';
+            salt.style.opacity = '1';
+
+            let baseTime = (temp === 'hot') ? 18 : 65;
+            let val = baseTime + Math.floor(Math.random() * 6) - 3;
+            trials.push(val);
+
+            document.getElementById('lab2-timer-display').innerText = "Dissolving... (" + val + "s)";
+
+            setTimeout(function() {
+                salt.style.opacity = '0';
+                let prefix = (temp === 'hot') ? 'l2-h-t' : 'l2-c-t';
+                document.getElementById(prefix + trials.length).innerText = val + " s";
+                document.getElementById('lab2-timer-display').innerText = "Dissolving complete: " + val + " seconds!";
+                btn.disabled = false;
             }, 1500);
         }
 
-        function updateTable(surface, dist) {
-            const body = document.getElementById('sim-table-body');
-            if(trialsRun.length === 1) body.innerHTML = '';
+        function verifyLab2Averages() {
+            let hAvg = parseInt(document.getElementById('l2-h-avg').value);
+            let cAvg = parseInt(document.getElementById('l2-c-avg').value);
+            let fb = document.getElementById('lab2-avg-fb');
 
-            let row = '<tr>' +
-                '<td>Trial ' + trialsRun.length + '</td>' +
-                '<td>' + (surface === 'smooth' ? 'Smooth Tile' : 'Carpet') + '</td>' +
-                '<td><strong>' + dist + ' cm</strong></td>' +
-            '</tr>';
-            body.innerHTML += row;
-        }
+            if(lab2Data.hot.length < 3 || lab2Data.cold.length < 3) {
+                fb.style.color = "#ef4444";
+                fb.innerText = "Please complete 3 trials for BOTH Hot Water and Cold Water first!";
+                return;
+            }
 
-        function verifyAverage() {
-            let sum = trialsRun.reduce(function(a, b) { return a + b; }, 0);
-            let expectedAvg = Math.round(sum / 3);
-            let userVal = parseInt(document.getElementById('user-avg-input').value);
-            let fb = document.getElementById('calc-feedback');
+            let realH = Math.round(lab2Data.hot.reduce((a,b)=>a+b, 0) / 3);
+            let realC = Math.round(lab2Data.cold.reduce((a,b)=>a+b, 0) / 3);
 
-            if(userVal === expectedAvg || Math.abs(userVal - expectedAvg) <= 1) {
+            if(Math.abs(hAvg - realH) <= 1 && Math.abs(cAvg - realC) <= 1) {
                 fb.style.color = "var(--accent-green)";
-                fb.innerText = "Correct! Sum (" + sum + ") ÷ 3 = " + expectedAvg + " cm. Excellent data precision!";
+                fb.innerText = "Averages verified! Hot Avg = " + realH + "s, Cold Avg = " + realC + "s. Complete conclusion below.";
+                document.getElementById('lab2-conc-zone').classList.remove('hidden');
             } else {
                 fb.style.color = "#ef4444";
-                fb.innerText = "Incorrect. Sum of trials = " + sum + ". Divided by 3 = " + expectedAvg + " cm. Check your math!";
+                fb.innerText = "Math check! Hot actual avg = " + realH + "s, Cold actual avg = " + realC + "s.";
             }
+        }
+
+        // --- VIRTUAL LAB 3 LOGIC (THERMAL ICE) ---
+        let lab3Data = { water: [], saltwater: [] };
+
+        function runLab3Trial() {
+            let type = document.getElementById('lab3-liquid-type').value;
+            let trials = lab3Data[type];
+
+            if(trials.length >= 3) {
+                alert("Completed 3 trials for " + type + "! Select the other liquid type to continue.");
+                return;
+            }
+
+            let btn = document.getElementById('lab3-run-btn');
+            let ice = document.getElementById('lab3-ice');
+            btn.disabled = true;
+
+            ice.style.transform = 'scale(1)';
+
+            let baseTime = (type === 'water') ? 45 : 95;
+            let val = baseTime + Math.floor(Math.random() * 8) - 4;
+            trials.push(val);
+
+            document.getElementById('lab3-timer-display').innerText = "Melting... (" + val + "s)";
+
+            setTimeout(function() {
+                ice.style.transform = 'scale(0.2)';
+                let prefix = (type === 'water') ? 'l3-w-t' : 'l3-s-t';
+                document.getElementById(prefix + trials.length).innerText = val + " s";
+                document.getElementById('lab3-timer-display').innerText = "Melting complete: " + val + " seconds!";
+                btn.disabled = false;
+            }, 1500);
+        }
+
+        function verifyLab3Averages() {
+            let wAvg = parseInt(document.getElementById('l3-w-avg').value);
+            let sAvg = parseInt(document.getElementById('l3-s-avg').value);
+            let fb = document.getElementById('lab3-avg-fb');
+
+            if(lab3Data.water.length < 3 || lab3Data.saltwater.length < 3) {
+                fb.style.color = "#ef4444";
+                fb.innerText = "Please complete 3 trials for BOTH Plain Water and Saltwater first!";
+                return;
+            }
+
+            let realW = Math.round(lab3Data.water.reduce((a,b)=>a+b, 0) / 3);
+            let realS = Math.round(lab3Data.saltwater.reduce((a,b)=>a+b, 0) / 3);
+
+            if(Math.abs(wAvg - realW) <= 1 && Math.abs(sAvg - realS) <= 1) {
+                fb.style.color = "var(--accent-green)";
+                fb.innerText = "Averages verified! Plain Water Avg = " + realW + "s, Saltwater Avg = " + realS + "s. Complete conclusion below.";
+                document.getElementById('lab3-conc-zone').classList.remove('hidden');
+            } else {
+                fb.style.color = "#ef4444";
+                fb.innerText = "Math check! Plain Water actual avg = " + realW + "s, Saltwater actual avg = " + realS + "s.";
+            }
+        }
+
+        // --- SUBMIT CONCLUSIONS VIA FORMSPREE ---
+        function submitLabConclusion(labTitle, textId, fbId) {
+            let text = document.getElementById(textId).value;
+            let fb = document.getElementById(fbId);
+            let name = document.getElementById('student-name').value || "Grade 8 Student";
+
+            if(text.length < 15) {
+                fb.style.color = "#ef4444";
+                fb.innerText = "Please write a complete conclusion sentence referencing your average numbers!";
+                return;
+            }
+
+            fetch('https://formspree.io/f/xknlqovw', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    _replyto: 'jdrury@bialik.ca',
+                    subject: 'Virtual Lab Conclusion (' + labTitle + ') - ' + name,
+                    student_name: name,
+                    lab_title: labTitle,
+                    written_conclusion: text
+                })
+            })
+            .then(function() {
+                fb.style.color = "var(--accent-green)";
+                fb.innerText = "🎉 Conclusion locked in & emailed to Mr. Drury!";
+            })
+            .catch(function() {
+                fb.style.color = "var(--accent-green)";
+                fb.innerText = "🎉 Conclusion locked in!";
+            });
         }
 
         // Scrollspy Navigation Active Highlight
