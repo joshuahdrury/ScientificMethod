@@ -341,3 +341,370 @@
 
             <!-- Game 2: Data Detective -->
             <div class="interactive-box">
+                <h3>Game 2: Data Detective 📊</h3>
+                <p><strong>Scenario:</strong> A student tested toy cars rolling down ramps of different heights and recorded the average distance traveled over 3 trials:</p>
+
+                <div class="info-card" style="background: white; margin: 1rem 0;">
+                    <ul>
+                        <li><strong>10 cm Ramp Height:</strong> Average Distance = 42 cm</li>
+                        <li><strong>20 cm Ramp Height:</strong> Average Distance = 88 cm</li>
+                        <li><strong>30 cm Ramp Height:</strong> Average Distance = 135 cm</li>
+                    </ul>
+                </div>
+
+                <p><strong>Question: Which statement is a valid scientific analysis supported directly by this data?</strong></p>
+                <select id="data-q">
+                    <option value="">-- Select an Analysis Statement --</option>
+                    <option value="wrong1">Car weight is the main reason why distance increases.</option>
+                    <option value="correct">As ramp height increases, the distance traveled by the toy car increases proportionally.</option>
+                    <option value="wrong2">Ramp height has no effect on car distance.</option>
+                </select>
+                <button onclick="checkDataGame()">Check Analysis</button>
+                <p id="data-fb" style="margin-top: 0.75rem; font-weight: bold;"></p>
+            </div>
+        </section>
+
+        <!-- PHASE 3: Lab Audit & Peer Review -->
+        <section id="lab-audit">
+            <h2>Phase 3: Lab Audit - Fix the Student's Work 🔍</h2>
+            <p>You are acting as a peer reviewer! Below are 3 real-world mock lab report snippets written by Grade 8 students. Identify what flaw needs to be corrected.</p>
+
+            <!-- Case 1 -->
+            <div class="interactive-box">
+                <h3>Case Study 1: The Ramp Height Experiment</h3>
+                <div class="info-card" style="background: white; border-left-color: var(--accent-amber);">
+                    <p><strong>Student's Method:</strong> <em>"I raised the ramp to 10 cm and rolled a plastic car. Then I raised the ramp to 30 cm and pushed a metal truck down the ramp to see if it went further."</em></p>
+                </div>
+                <label for="audit1"><strong>What critical scientific error did this student make in their procedure?</strong></label>
+                <select id="audit1">
+                    <option value="">-- Select the Flaw --</option>
+                    <option value="wrong">They used centimeters instead of meters.</option>
+                    <option value="correct">Uncontrolled variables: They changed both car type (plastic vs metal) and pushed it, violating a fair test.</option>
+                    <option value="wrong2">You cannot measure distance for cars on ramps.</option>
+                </select>
+                <button onclick="checkAudit('audit1', 'correct', 'fb-audit1')">Audit Report 1</button>
+                <p id="fb-audit1" style="margin-top: 0.5rem; font-weight: bold;"></p>
+            </div>
+
+            <!-- Case 2 -->
+            <div class="interactive-box">
+                <h3>Case Study 2: Salt Dissolving Temperature Study</h3>
+                <div class="info-card" style="background: white; border-left-color: var(--accent-purple);">
+                    <p><strong>Student's Conclusion:</strong> <em>"My hypothesis was right! Salt dissolves faster in warm water because warm water is much better than cold water."</em></p>
+                </div>
+                <label for="audit2"><strong>Why would this conclusion receive a low mark in Grade 8 Science?</strong></label>
+                <select id="audit2">
+                    <option value="">-- Select the Flaw --</option>
+                    <option value="wrong">Conclusions must be at least 5 pages long.</option>
+                    <option value="correct">Lack of scientific evidence and vague language: It fails to reference numerical data or kinetic theory.</option>
+                    <option value="wrong2">Salt does not dissolve in warm water.</option>
+                </select>
+                <button onclick="checkAudit('audit2', 'correct', 'fb-audit2')">Audit Report 2</button>
+                <p id="fb-audit2" style="margin-top: 0.5rem; font-weight: bold;"></p>
+            </div>
+
+            <!-- Case 3 -->
+            <div class="interactive-box">
+                <h3>Case Study 3: The Ice Melting Study</h3>
+                <div class="info-card" style="background: white; border-left-color: var(--accent-green);">
+                    <p><strong>Student's Hypothesis:</strong> <em>"I think the ice cube in saltwater will melt fastest because salt is hot and melts ice."</em></p>
+                </div>
+                <label for="audit3"><strong>How should this hypothesis be rewritten to meet scientific standards?</strong></label>
+                <textarea id="audit3" rows="2" placeholder="Write a better hypothesis using 'If... then... because...' and valid science facts..."></textarea>
+                <button onclick="checkHypoText()">Submit Improved Hypothesis</button>
+                <p id="fb-audit3" style="margin-top: 0.5rem; font-weight: bold;"></p>
+            </div>
+        </section>
+
+        <!-- PHASE 4: Exit Ticket -->
+        <section id="checkin">
+            <h2>Phase 4: Class Exit Ticket &amp; Log 📩</h2>
+            <p>Submit your completed workshop summary. This sends your results directly to Mr. Drury (jdrury@bialik.ca) and unlocks Phase 5 (Virtual Sim Lab)!</p>
+
+            <form id="g8-form" onsubmit="submitProgress(event)">
+                <label for="student-name">Your First &amp; Last Name:</label>
+                <input type="text" id="student-name" required placeholder="e.g. Alex Smith">
+
+                <label for="topic-name">What is your personal experiment topic for your Grade 8 lab assignment?</label>
+                <input type="text" id="topic-name" required placeholder="e.g. Ramp heights vs car travel distance">
+
+                <label for="takeaway">What is ONE major flaw in student lab reports you learned to avoid today?</label>
+                <textarea id="takeaway" rows="2" required placeholder="I learned to avoid changing multiple variables at once..."></textarea>
+
+                <button type="submit" id="g8-submit-btn">Submit Exit Ticket to Mr. Drury</button>
+            </form>
+
+            <div id="g8-success" class="hidden interactive-box" style="background-color: #dcfce7; border-color: #86efac; color: #166534; margin-top: 1rem; text-align: center;">
+                <p style="font-size: 1.1rem; margin-bottom: 0.75rem;">🎉 <strong>Exit Ticket Submitted!</strong> Your responses have been sent to Mr. Drury (jdrury@bialik.ca).</p>
+                <hr style="border: 0; border-top: 1px solid #86efac; margin: 1rem 0;">
+                <p><strong>Phase 5 Unlocked!</strong> Click the button below to conduct virtual experiments and calculate real-time trial data!</p>
+                <button onclick="scrollToSim()" style="background: #0284c7; margin-top: 0.5rem;">Launch Virtual Sim Lab 🚀</button>
+            </div>
+        </section>
+
+        <!-- PHASE 5: Virtual Experiment Lab (Unlocked After Submission) -->
+        <section id="virtual-lab" class="hidden" style="border: 2px solid #0284c7;">
+            <span class="badge" style="background: #fef3c7; color: #b45309;">🚀 Phase 5: Bonus Virtual Lab</span>
+            <h2>Hypothetical Physics Lab: Friction &amp; Distance 🏎️</h2>
+            <p>Run 3 virtual trials by adjusting variables below. Record the distance outputted for each trial, calculate the mathematical average, and input your answer to test your data precision!</p>
+
+            <div class="interactive-box">
+                <div class="grid-2">
+                    <div>
+                        <label for="sim-surface"><strong>Independent Variable: Surface Type</strong></label>
+                        <select id="sim-surface">
+                            <option value="smooth">Smooth Tile (Low Friction)</option>
+                            <option value="carpet">Carpet (High Friction)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="sim-mass"><strong>Controlled Variable: Car Mass</strong></label>
+                        <select id="sim-mass">
+                            <option value="light">Standard Plastic Car (50g)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Sim Animation Track -->
+                <div class="sim-track">
+                    <div class="sim-ramp"></div>
+                    <div class="sim-car" id="sim-car"></div>
+                </div>
+
+                <button onclick="runSimTrial()" id="sim-run-btn">Run Trial</button>
+
+                <!-- Data Collection Table -->
+                <h3 style="margin-top: 1.5rem;">Experimental Data Log</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Trial #</th>
+                            <th>Surface Type</th>
+                            <th>Distance Traveled (cm)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sim-table-body">
+                        <tr><td colspan="3" style="color: #94a3b8;">No trials run yet. Click "Run Trial" above!</td></tr>
+                    </tbody>
+                </table>
+
+                <!-- Average Calculation Verification -->
+                <div id="sim-calc-zone" class="hidden" style="margin-top: 1.5rem; background: white; padding: 1rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <h3>Calculate the Average Distance:</h3>
+                    <p>Add up your 3 trial distances and divide by 3. What is the calculated average distance (cm)?</p>
+                    <input type="number" id="user-avg-input" placeholder="Enter calculated average in cm (e.g. 120)">
+                    <button onclick="verifyAverage()">Verify Calculation</button>
+                    <p id="calc-feedback" style="margin-top: 0.75rem; font-weight: bold;"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // --- GAME 1: VARIABLE SORTER ---
+        const varQuestions = [
+            { scenario: "Testing how water temperature affects salt dissolving rate.", target: "Water Temperature (°C)", answer: "IV" },
+            { scenario: "Testing how water temperature affects salt dissolving rate.", target: "Time it takes salt to dissolve (seconds)", answer: "DV" },
+            { scenario: "Testing how water temperature affects salt dissolving rate.", target: "Amount of water and amount of salt used", answer: "CV" },
+            { scenario: "Testing how ramp height affects car travel distance.", target: "Distance car travels (cm)", answer: "DV" },
+            { scenario: "Testing how liquid type affects ice cube melting time.", target: "Type of liquid (Water, Soda, Juice)", answer: "IV" }
+        ];
+
+        let varIndex = 0;
+        let varScore = 0;
+
+        function checkVariable(choice) {
+            let q = varQuestions[varIndex];
+            let fb = document.getElementById('var-feedback');
+            
+            if(choice === q.answer) {
+                varScore++;
+                fb.style.color = "#4ade80";
+                fb.innerText = "Correct!";
+            } else {
+                fb.style.color = "#f87171";
+                fb.innerText = "Incorrect! Target was the " + q.answer + ".";
+            }
+
+            document.getElementById('var-score').innerText = varScore;
+
+            varIndex++;
+            if(varIndex < varQuestions.length) {
+                setTimeout(function() {
+                    fb.innerText = "";
+                    document.getElementById('var-scenario').innerText = varQuestions[varIndex].scenario;
+                    document.getElementById('var-target').innerText = "Target: " + varQuestions[varIndex].target;
+                }, 1200);
+            } else {
+                setTimeout(function() {
+                    document.getElementById('var-scenario').innerText = "Sorting Blitz Complete!";
+                    document.getElementById('var-target').innerText = "Final Score: " + varScore + " / 5";
+                }, 1200);
+            }
+        }
+
+        // --- GAME 2: DATA GAME ---
+        function checkDataGame() {
+            let val = document.getElementById('data-q').value;
+            let fb = document.getElementById('data-fb');
+            if(val === 'correct') {
+                fb.style.color = "var(--accent-green)";
+                fb.innerText = "Spot on! The data shows a direct positive relationship between ramp height and distance.";
+            } else {
+                fb.style.color = "#ef4444";
+                fb.innerText = "Incorrect. Look closely at how distance increases as ramp height increases.";
+            }
+        }
+
+        // --- PHASE 3: AUDITS ---
+        function checkAudit(id, correctVal, fbId) {
+            let val = document.getElementById(id).value;
+            let fb = document.getElementById(fbId);
+            if(val === correctVal) {
+                fb.style.color = "var(--accent-green)";
+                fb.innerText = "Excellent spot! This flaw directly ruins the scientific validity of the experiment.";
+            } else {
+                fb.style.color = "#ef4444";
+                fb.innerText = "Not quite. Look closely at the variables or scientific language used.";
+            }
+        }
+
+        function checkHypoText() {
+            let text = document.getElementById('audit3').value;
+            let fb = document.getElementById('fb-audit3');
+            if(text.length > 15) {
+                fb.style.color = "var(--accent-green)";
+                fb.innerText = "Great job drafting a scientifically structured hypothesis!";
+            } else {
+                fb.style.color = "#ef4444";
+                fb.innerText = "Please write out a full sentence prediction using scientific reasoning.";
+            }
+        }
+
+        // --- FORM SUBMISSION & PHASE 5 UNLOCK ---
+        function submitProgress(e) {
+            e.preventDefault();
+            const btn = document.getElementById('g8-submit-btn');
+            btn.innerText = 'Sending Exit Ticket...';
+            btn.disabled = true;
+
+            const name = document.getElementById('student-name').value;
+            const topic = document.getElementById('topic-name').value;
+            const takeaway = document.getElementById('takeaway').value;
+
+            fetch('https://formspree.io/f/xknlqovw', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    _replyto: 'jdrury@bialik.ca',
+                    subject: 'Grade 8 Science Workshop Exit Ticket - ' + name,
+                    student_name: name,
+                    personal_experiment_topic: topic,
+                    key_takeaway: takeaway
+                })
+            })
+            .then(function(response) {
+                document.getElementById('g8-form').style.display = 'none';
+                document.getElementById('g8-success').classList.remove('hidden');
+                document.getElementById('virtual-lab').classList.remove('hidden');
+                document.getElementById('nav-sim-link').classList.remove('hidden');
+            })
+            .catch(function(error) {
+                console.error('Submission Error:', error);
+                document.getElementById('g8-form').style.display = 'none';
+                document.getElementById('g8-success').classList.remove('hidden');
+                document.getElementById('virtual-lab').classList.remove('hidden');
+                document.getElementById('nav-sim-link').classList.remove('hidden');
+            });
+        }
+
+        function scrollToSim() {
+            document.getElementById('virtual-lab').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- PHASE 5: VIRTUAL SIMULATOR LOGIC ---
+        let trialsRun = [];
+
+        function runSimTrial() {
+            if(trialsRun.length >= 3) {
+                alert("You have already completed 3 trials for this test! Calculate the average below.");
+                return;
+            }
+
+            const surface = document.getElementById('sim-surface').value;
+            const car = document.getElementById('sim-car');
+            const btn = document.getElementById('sim-run-btn');
+            btn.disabled = true;
+
+            let baseDist = (surface === 'smooth') ? 120 : 50;
+            let variation = Math.floor(Math.random() * 10) - 5;
+            let trialDist = baseDist + variation;
+
+            let pxMove = (surface === 'smooth') ? 280 : 130;
+            car.style.left = pxMove + 'px';
+
+            setTimeout(function() {
+                trialsRun.push(trialDist);
+                updateTable(surface, trialDist);
+
+                setTimeout(function() {
+                    car.style.left = '10px';
+                    btn.disabled = false;
+                }, 800);
+
+                if(trialsRun.length === 3) {
+                    document.getElementById('sim-calc-zone').classList.remove('hidden');
+                }
+            }, 1500);
+        }
+
+        function updateTable(surface, dist) {
+            const body = document.getElementById('sim-table-body');
+            if(trialsRun.length === 1) body.innerHTML = '';
+
+            let row = '<tr>' +
+                '<td>Trial ' + trialsRun.length + '</td>' +
+                '<td>' + (surface === 'smooth' ? 'Smooth Tile' : 'Carpet') + '</td>' +
+                '<td><strong>' + dist + ' cm</strong></td>' +
+            '</tr>';
+            body.innerHTML += row;
+        }
+
+        function verifyAverage() {
+            let sum = trialsRun.reduce(function(a, b) { return a + b; }, 0);
+            let expectedAvg = Math.round(sum / 3);
+            let userVal = parseInt(document.getElementById('user-avg-input').value);
+            let fb = document.getElementById('calc-feedback');
+
+            if(userVal === expectedAvg || Math.abs(userVal - expectedAvg) <= 1) {
+                fb.style.color = "var(--accent-green)";
+                fb.innerText = "Correct! Sum (" + sum + ") ÷ 3 = " + expectedAvg + " cm. Excellent data precision!";
+            } else {
+                fb.style.color = "#ef4444";
+                fb.innerText = "Incorrect. Sum of trials = " + sum + ". Divided by 3 = " + expectedAvg + " cm. Check your math!";
+            }
+        }
+
+        // Scrollspy Navigation Active Highlight
+        window.addEventListener('scroll', function() {
+            let current = '';
+            document.querySelectorAll('section').forEach(function(sec) {
+                if(pageYOffset >= sec.offsetTop - 120) {
+                    current = sec.getAttribute('id');
+                }
+            });
+            document.querySelectorAll('nav a').forEach(function(a) {
+                if(a.getAttribute('href').startsWith('#')) {
+                    a.classList.remove('active');
+                    if(a.getAttribute('href') === '#' + current) {
+                        a.classList.add('active');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
